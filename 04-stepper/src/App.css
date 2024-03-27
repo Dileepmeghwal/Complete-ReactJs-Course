@@ -1,0 +1,87 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.steps {
+  background-color: #7067985a;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+  border-radius: 30px;
+
+  margin: 0;
+}
+.numbers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.numbers div {
+  width: 25px;
+  padding: 3px;
+  border-radius: 50%;
+  height: 25px;
+  background-color: #5c96a680;
+}
+.active {
+  background-color: rgba(16, 136, 255, 0.901) !important;
+}
+.message {
+  font-size: 30px;
+
+  color: #fff;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 100px;
+}
+.buttons button {
+  border-radius: 20px;
+}
+
+.buttons button.active {
+  background-color: blue !important;
+}
