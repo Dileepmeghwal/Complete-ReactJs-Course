@@ -1,0 +1,136 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* color-scheme: light dark; */
+  color: rgba(51, 18, 151, 0.439);
+  /* background-color: #24242447; */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.app {
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 90%;
+  margin: auto;
+}
+
+.sidebar {
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.sidebar ul {
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+.sidebar li {
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 15px;
+  border-radius: 10px;
+
+  text-align: left;
+  gap: 20px;
+}
+.sidebar li:hover {
+  background-color: #fff4e6;
+}
+.selected {
+  background-color: #fff4e6;
+}
+.sidebar .avatar {
+  width: 60px;
+  height: 60px;
+}
+.sidebar .avatar img {
+  border-radius: 100%;
+  width: 100%;
+}
+.sidebar li .name {
+  margin: 0;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0;
+}
+.sidebar li .name h3 {
+  margin: 0;
+}
+
+.btn-primary {
+  background-color: green;
+  border: 0;
+  padding: 4px 10px;
+  border-radius: 5px;
+}
+
+.red {
+  color: red;
+}
+.green {
+  color: green;
+}
+
+.form-add {
+  background-color: #eaebd5;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-radius: 5px;
+}
+.form-add input {
+  /* width: 100%; */
+  height: 30px;
+  border: 0;
+  border-radius: 5px;
+  padding: 4px 10px;
+  margin-bottom: 10px;
+}
+
+label::first-letter {
+  display: inline-block;
+
+  color: darkblue;
+}
+
+.button {
+  background-color: #ffa94d;
+  color: #343a40;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  cursor: pointer;
+  float: right;
+  margin: 10px 0;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: #ffa94d;
+}
+
+.form-split-bill {
+  background-color: #8a7e703d;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 25px;
+  border-radius: 5px;
+}
