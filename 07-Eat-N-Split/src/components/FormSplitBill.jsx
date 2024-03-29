@@ -11,9 +11,7 @@ export function FormSplitBill({ selectedFriend, onSplitBill }) {
 
   const handleSplit = (e) => {
     e.preventDefault();
-
     if (!bill || !paidByUser) return;
-
     onSplitBill(whoIsPaying === "user" ? paidByFriend : -paidByUser);
   };
   return (
