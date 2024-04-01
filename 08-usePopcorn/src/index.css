@@ -43,7 +43,7 @@ body {
 
 .main {
   margin-top: 2.4rem;
-  height: calc(100vh - 7.2rem - 3 * 2.4rem);
+  /* height: calc(100vh - 7.2rem - 3 * 2.4rem); */
   display: flex !important;
   gap: 2.4rem;
   justify-content: center;
@@ -153,7 +153,7 @@ body {
   column-gap: 2.4rem;
   font-size: 1.6rem;
   align-items: center;
-
+cursor: pointer;
   padding: 1.6rem 3.2rem;
   border-bottom: 1px solid var(--color-background-100);
 }
