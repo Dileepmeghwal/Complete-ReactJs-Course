@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import StarRating from "./components/StarRating";
+import { useMovies } from "./hooks/useMovies";
 
 const tempMovieData = [
   {
@@ -54,17 +55,15 @@ const tempWatchedData = [
 const average = (arr) => {
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 };
-
 const KEY = "a57571f7";
 
 function App() {
-  const [movies, setMovies] = useState([]);
   const [watched, setWatched] = useState([]);
   const [query, setQuery] = useState("inception");
   const tempQuery = "interstellar";
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
+
+  const { movies, isLoading, error } = useMovies(query, handleCloseMovie);
 
   // useEffect(() => {
   //   console.log("After initial render");
@@ -134,54 +133,18 @@ function App() {
       </p>
     );
   }
-  const MovieDetails = ({ selectedId, onClose, onAddWatch }) => {
-    const [movie, setMovies] = useState({});
-    const [isLoading, setIsLoading] = useState(false);
-
-    const {
-      Title: title,
-      Poster: poster,
-      Plot: plot,
-      Actors: actors,
-      Year: year,
-      imdbID,
-      Released: released,
-      Director: director,
-      Genre: genre,
-      Runtime: runtime,
-      imdbRating,
-    } = movie;
-
-    const handleWatched = () => {
-      const newWatched = {
-        title,
-        imdbID: selectedId,
-        year,
-        poster,
-        imdbRating: Number(imdbRating),
-        runtime: Number(runtime.split("").at(0)),
-      };
-      onAddWatch(newWatched);
-      onClose()
-    };
+  const MovieDetails = ({ selectedId, onClose }) => {
+    const countRef = useRef(0);
 
     useEffect(() => {
-      async function getMovieDetails() {
-        setIsLoading(true);
-        try {
-          const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`
-          );
-          const data = await res.json();
-          console.log(data);
-          setMovies(data);
-          setIsLoading(false);
-        } catch (error) {
-          console.error(error);
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Escape") {
+          onClose();
+          console.log("closing");
         }
-      }
-      getMovieDetails();
-    }, [selectedId]);
+      });
+      console.log(countRef);
+    });
 
     return (
       <div className="details">
@@ -278,6 +241,46 @@ const Logo = () => {
   );
 };
 const Search = ({ query, setQuery }) => {
+  const inputEl = useRef(null);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      // Check if the control key and '/' key are pressed simultaneously
+      if (event.ctrlKey && event.key === "/") {
+        // Focus on the input element
+        inputEl.current.focus();
+      }
+    };
+
+    // Add event listener to the window
+    window.addEventListener("keydown", handleKeyPress);
+
+    // Clean up the event listener
+    return () => {
+      window.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
+
+  useEffect(() => {
+    function callback(e) {
+      if (e.code === "Enter") {
+        inputEl.current.focus();
+        setQuery("");
+      }
+    }
+
+    // console.log(inputEl.current.autofocus);
+    document.addEventListener("keydown", callback);
+    return () => document.addEventListener("keydown", callback);
+  }, []);
+
+  // useEffect(() => {
+  //   const el = document.querySelector(".search");
+  //   console.log(el);
+
+  //   el.focus();
+  // }, []);
+
   return (
     <input
       className="search"
@@ -285,6 +288,7 @@ const Search = ({ query, setQuery }) => {
       onChange={(e) => setQuery(e.target.value)}
       type="text"
       placeholder="Search movies..."
+      ref={inputEl}
     />
   );
 };
@@ -343,6 +347,7 @@ const WatchedSummary = ({ watched }) => {
   const avgImdbRating = average(watched.map((movie) => movie.imdbRating));
   const avgUserRating = average(watched.map((movie) => movie.userRating));
   const avgRuntime = average(watched.map((movie) => movie.runtime));
+
   return (
     <div className="summary">
       <h2>Movies you watched</h2>
