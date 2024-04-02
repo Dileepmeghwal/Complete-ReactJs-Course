@@ -35,7 +35,7 @@ const Amount = ({ amount, setAmount }) => {
         type="text"
         placeholder="Amount"
         value={amount}
-        onChange={(e) => setAmount(e.target.value)}
+        onChange={(e) => setAmount(Number(e.target.value))}
         name=""
         id=""
       />
