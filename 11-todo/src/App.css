@@ -1,0 +1,220 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  background-color: rgba(0, 0, 0, 0.533);
+  max-width: 60%;
+  margin: 0 auto;
+  position: relative;
+  top: 150px;
+  padding: 30px;
+  border-radius: 20px;
+}
+.done-task {
+  border: 1px solid salmon;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 30px 10px;
+}
+.count-circle {
+  width: 100px;
+  height: 100px;
+  background-color: #fe5631;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+}
+.add-task {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.inputbox {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  border: 0;
+}
+.updateBx {
+  border-radius: 10px;
+  width: 100% !important;
+  height: 45px;
+  padding: 4px 15px;
+  border: 0;
+}
+.updateBx:focus-visible {
+  width: 100% !important;
+  border: 0 !important;
+  outline: none !important;
+}
+.count-circle p {
+  font-size: 30px;
+  font-weight: 800;
+  color: #000;
+}
+
+.inputbox input {
+  height: 45px;
+  border: 0;
+  border-radius: 3ch;
+  padding: 4px 25px;
+  color: #fff;
+  /* min-width: 80%; */
+  width: 100%;
+  font-size: 16px;
+  background-color: #a24b4b55;
+}
+.add-btn {
+  background-color: #fe5631;
+
+  width: 50px;
+  height: 50px;
+
+  border-radius: 100%;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+  place-items: center;
+}
+
+.add-btn > button {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  display: flex;
+  place-items: center;
+}
+.add-btn > button:focus-visible {
+  border: 0;
+  outline: none !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+  position: re;
+}
+ul li {
+  display: flex;
+  border: 1px solid #fa8072a7;
+  border-radius: 10px;
+  padding: 0px 15px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #a24b4b55;
+  margin-bottom: 10px;
+
+  /* text-decoration: line-through; */
+}
+.flex-start {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.curd-btn {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.list {
+  position: relative;
+}
+input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  position: absolute;
+  cursor: pointer;
+  width: 0px;
+  height: 0px;
+}
+
+input[type="checkbox"]:checked:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 100px;
+  background-color: #ffcb9a;
+  transition: all 0.2s linear;
+}
+
+.completed {
+  text-decoration: line-through;
+  background-color: rgba(125, 110, 118, 0.209);
+}
+
+.msg {
+  padding: 20px;
+}
+h2 {
+  margin: 0;
+}
+
+.msg h3 {
+  opacity: 0.4;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 100%;
+  top: -10px;
+  left: 0;
+
+  border: 1px solid #fe5631;
+}
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #cdbea3;
+  border: 0 !important;
+}
+.controler {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+.complete-all {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+}
