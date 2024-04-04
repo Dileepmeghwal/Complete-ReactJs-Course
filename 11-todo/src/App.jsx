@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -7,6 +7,10 @@ import { TbEdit, TbH1 } from "react-icons/tb";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { MdOutlineSaveAs } from "react-icons/md";
 import { useEffect } from "react";
+import InputBox from "./components/InputBox";
+import TaskList from "./components/TaskList";
+import DoneTodo from "./components/DoneTodo";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 const initialTasks = [
   {
@@ -22,20 +26,18 @@ const initialTasks = [
 ];
 function App() {
   const [task, setTask] = useState("");
-  const [taskList, setTaskList] = useState(() => {
-    const storedTasks = localStorage.getItem("taskList");
-    return JSON.parse(storedTasks) || [];
-  });
+  const [taskList, setTaskList] = useLocalStorage("taskList", []);
+
   const [edit, setEdit] = useState(false);
   const [editId, setEditId] = useState(null);
   const [update, setUpdate] = useState("");
+  const [selectAllChecked, setSelectAllChecked] = useState(false);
   const addTask = () => {
     setTaskList((prevTask) => [
       ...prevTask,
       { id: Date.now(), title: task, isCompleted: false },
     ]);
   };
-  console.log(taskList);
 
   function handleComplete(task) {
     console.log(task);
@@ -51,15 +53,13 @@ function App() {
     setEdit(true);
     setEditId(id);
     setUpdate(task);
+
+    // inputEl.current.focus();
   }
 
   function handleTaskDelete(id) {
     setTaskList((prevTask) => prevTask.filter((task) => task.id !== id));
   }
-
-  useEffect(() => {
-    localStorage.setItem("taskList", JSON.stringify(taskList));
-  }, [taskList]);
 
   function updateTodo() {
     if (!update) return;
@@ -72,7 +72,7 @@ function App() {
       );
       setEdit(false);
       setEditId(null);
-      setUpdate("");
+      setUpdate(""); // Reset the update state to an empty title
     }
   }
 
@@ -83,25 +83,49 @@ function App() {
 
   const handleClearAll = () => {
     setTaskList([]);
+    setSelectAllChecked(!selectAllChecked);
   };
 
-  const handleCompleteAll = () => {
-    setTaskList((prev) => prev.map((item) => ({ ...item, isCompleted: true })));
-  };
+  useEffect(() => {
+    const allTasksCompleted = taskList.every((task) => task.isCompleted);
+    // console.log(allTasksCompleted);
+    setSelectAllChecked(allTasksCompleted);
+  }, [taskList]);
 
+  const handleSelectAllChange = () => {
+    setTaskList(
+      taskList.map((task) => ({
+        ...task,
+        isCompleted: !selectAllChecked,
+      }))
+    );
+    setSelectAllChecked((prevState) => !prevState);
+  };
   return (
     <>
       <div className="app">
         <DoneTodo length={taskLength} completedTask={completedTask} />
 
         <div className="controler">
-          <div className="complete-all">
-            <input type="checkbox" name="" id="" onClick={handleCompleteAll} />
-            <label htmlFor="">Complete All</label>
-          </div>
-          <div className="delete-all">
-            <button onClick={handleClearAll}>Clear task</button>
-          </div>
+          {taskLength > 1 && (
+            <>
+              <div className="complete-all">
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  checked={
+                    taskLength <= 0 ? !selectAllChecked : selectAllChecked
+                  }
+                  onChange={handleSelectAllChange}
+                />
+                <label htmlFor="">Complete All</label>
+              </div>
+              <div className="delete-all">
+                <button onClick={handleClearAll}>Clear task</button>
+              </div>
+            </>
+          )}
         </div>
         <div className="add-task">
           <InputBox task={task} setTask={setTask} addTask={addTask} />
@@ -125,6 +149,8 @@ function App() {
               updateTodo={updateTodo}
               update={update}
               setUpdate={setUpdate}
+              setEdit={setEdit}
+              setEditId={setEditId}
             />
           </div>
         )}
@@ -134,136 +160,3 @@ function App() {
 }
 
 export default App;
-
-function DoneTodo({ length, completedTask }) {
-  const msg = completedTask === length && completedTask !== 0;
-
-  return (
-    <div className="done-task">
-      <div>
-        <h2>Todo Done</h2>
-        <span>
-          {msg ? "Congratulation 🎉 you completed all task!" : "keep it up"}
-        </span>
-      </div>
-      <div className="count-circle">
-        <p>
-          {completedTask}/{length}
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function InputBox({ task, setTask, addTask, editId, edit }) {
-  function handleSubmitTask(e) {
-    e.preventDefault();
-
-    if (task.trim() == "") return;
-
-    addTask();
-    setTask("");
-  }
-
-  return (
-    <form className="inputbox" onSubmit={handleSubmitTask}>
-      <input
-        type="text"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
-        placeholder="Write your tast..."
-      />
-      <AddTodo />
-    </form>
-  );
-}
-function AddTodo() {
-  return (
-    <div className="add-btn">
-      <button type="submit">
-        <IoMdAddCircleOutline size={30} color="#f8f8f8" />
-      </button>
-    </div>
-  );
-}
-
-function TaskList({
-  tasklist,
-  handleComplete,
-  handleEditTask,
-  editId,
-  handleTaskDelete,
-  edit,
-  update,
-  setUpdate,
-  updateTodo,
-}) {
-  return (
-    <ul>
-      {tasklist &&
-        tasklist.map((task) => (
-          <Task
-            task={task}
-            key={task.id}
-            handleComplete={handleComplete}
-            handleEditTask={handleEditTask}
-            editId={editId}
-            edit={edit}
-            handleTaskDelete={handleTaskDelete}
-            updateTodo={updateTodo}
-            update={update}
-            setUpdate={setUpdate}
-          />
-        ))}
-    </ul>
-  );
-}
-
-function Task({
-  task,
-  handleComplete,
-  handleEditTask,
-  edit,
-  editId,
-  handleTaskDelete,
-  updateTodo,
-  update,
-  setUpdate,
-}) {
-  const isCompleted = task?.isCompleted;
-
-  return (
-    <li className={`${isCompleted ? "completed" : ""}`}>
-      <div className="flex-start">
-        <input
-          type="checkbox"
-          name=""
-          onClick={() => handleComplete(task)}
-          defaultChecked={task.isCompleted}
-        />
-
-        {edit && task.id === editId ? (
-          <input
-            type="text"
-            className="updateBx"
-            value={update.title}
-            onChange={(e) => setUpdate(e.target.value)}
-          />
-        ) : (
-          <p style={{ color: isCompleted ? "#cdbea3" : "" }} className="title">
-            {task.title}
-          </p>
-        )}
-      </div>
-      <div className="curd-btn">
-        {edit && task.id === editId ? (
-          <MdOutlineSaveAs size={25} onClick={updateTodo} />
-        ) : (
-          <TbEdit size={25} onClick={() => handleEditTask(task.id, task)} />
-        )}
-
-        <AiTwotoneDelete size={25} onClick={() => handleTaskDelete(task.id)} />
-      </div>
-    </li>
-  );
-}
