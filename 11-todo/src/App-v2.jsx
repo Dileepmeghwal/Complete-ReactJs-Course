@@ -2,8 +2,10 @@ import { useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { createContext } from "react";
-
+import { IoMdAddCircle, IoMdAddCircleOutline } from "react-icons/io";
+import { TbEdit, TbH1 } from "react-icons/tb";
+import { AiTwotoneDelete } from "react-icons/ai";
+import { MdOutlineSaveAs } from "react-icons/md";
 import { useEffect } from "react";
 import InputBox from "./components/InputBox";
 import TaskList from "./components/TaskList";
@@ -22,11 +24,6 @@ const initialTasks = [
     isCompleted: true,
   },
 ];
-
-// CREATE A CONTEXT
-
-const TodoProvider = createContext();
-
 function App() {
   const [task, setTask] = useState("");
   const [taskList, setTaskList] = useLocalStorage("taskList", []);
@@ -105,27 +102,7 @@ function App() {
     setSelectAllChecked((prevState) => !prevState);
   };
   return (
-    <TodoProvider.Provider
-      value={{
-        length: taskLength,
-        completedTask: completedTask,
-        handleSelectAllChange: handleSelectAllChange,
-        handleEditTask: handleEditTask,
-        handleClearAll: handleClearAll,
-        task: task,
-        editId: editId,
-        edit: edit,
-        setTask: setTask,
-        addTask: addTask,
-        handleTaskDelete: handleTaskDelete,
-        updateTodo: updateTodo,
-        setEdit: setEdit,
-        update: update,
-        setEdit: setEdit,
-        taskList: taskList,
-        setEditId: setEditId,
-      }}
-    >
+    <>
       <div className="app">
         <DoneTodo length={taskLength} completedTask={completedTask} />
 
@@ -151,7 +128,7 @@ function App() {
           )}
         </div>
         <div className="add-task">
-          <InputBox  />
+          <InputBox task={task} setTask={setTask} addTask={addTask} />
         </div>
 
         {taskList.length <= 0 ? (
@@ -178,7 +155,7 @@ function App() {
           </div>
         )}
       </div>
-    </TodoProvider.Provider>
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import AddTodo from "./AddTodo";
 
-function InputBox({ task, setTask, addTask, editId, edit }) {
+function InputBox() {
   const inputEl = useRef(null);
   function handleSubmitTask(e) {
     e.preventDefault();
