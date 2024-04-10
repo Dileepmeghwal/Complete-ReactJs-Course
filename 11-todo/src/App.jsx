@@ -151,7 +151,7 @@ function App() {
           )}
         </div>
         <div className="add-task">
-          <InputBox  />
+          <InputBox />
         </div>
 
         {taskList.length <= 0 ? (
