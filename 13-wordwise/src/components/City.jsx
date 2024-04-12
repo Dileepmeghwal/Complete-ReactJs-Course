@@ -19,9 +19,12 @@ function City() {
   const { id } = useParams();
   const { getCity, currentCity, isLoading } = useCities();
 
-  useEffect(function () {
-    getCity(id);
-  }, []);
+  useEffect(
+    function () {
+      getCity(id);
+    },
+    [id,getCity]
+  );
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -63,7 +66,7 @@ function City() {
       </div>
 
       <div>
-        <BackButton/>
+        <BackButton />
       </div>
     </div>
   );
