@@ -1,0 +1,76 @@
+{
+  "cities": [
+    {
+      "cityName": "Lisbon",
+      "country": "Portugal",
+      "emoji": "🇵🇹",
+      "date": "2027-10-31T15:59:59.138Z",
+      "notes": "My favorite city so far!",
+      "position": {
+        "lat": 38.727881642324164,
+        "lng": -9.140900099907554
+      },
+      "id": "73930385"
+    },
+    {
+      "cityName": "Madrid",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2027-07-15T08:22:53.976Z",
+      "notes": "",
+      "position": {
+        "lat": 40.46635901755316,
+        "lng": -3.7133789062500004
+      },
+      "id": "17806751"
+    },
+    {
+      "id": "8e26",
+      "cityName": "gujarat",
+      "country": "India",
+      "emoji": "🇮🇳",
+      "date": "2024-04-11T06:50:59.463Z",
+      "notes": "live in ahmedabad\n",
+      "position": {
+        "lat": "21.14599216495789",
+        "lng": "78.28857421875001"
+      }
+    },
+    {
+      "id": "fa0f",
+      "cityName": "Ordino",
+      "country": "Andorra",
+      "emoji": "🇦🇩",
+      "date": "2024-04-11T06:55:35.737Z",
+      "notes": "heu ejfsle",
+      "position": {
+        "lat": "42.553080288955826",
+        "lng": "1.5380859375000002"
+      }
+    },
+    {
+      "id": "8032",
+      "cityName": "Feidh el Botma",
+      "country": "Algeria",
+      "emoji": "🇩🇿",
+      "date": "2024-04-10T07:00:41.000Z",
+      "notes": "",
+      "position": {
+        "lat": "34.542762387234845",
+        "lng": "3.6914062500000004"
+      }
+    },
+    {
+      "id": "5c23",
+      "cityName": "Udaipur",
+      "country": "India",
+      "emoji": "🇮🇳",
+      "date": "2024-04-11T07:01:17.030Z",
+      "notes": "i am from udaipur",
+      "position": {
+        "lat": "24.62205114321693",
+        "lng": "73.80615234375001"
+      }
+    }
+  ]
+}
