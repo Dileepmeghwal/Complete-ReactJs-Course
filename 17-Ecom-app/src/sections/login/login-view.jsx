@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -21,9 +21,9 @@ import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import ErrorMessage from 'src/components/error/error';
-import { error } from 'src/theme/palette';
 import { useAuth } from 'src/hooks/AuthContext';
+import toast, { Toaster } from 'react-hot-toast';
+import Error from 'src/components/error/error';
 
 // ----------------------------------------------------------------------
 
@@ -32,15 +32,13 @@ export default function LoginView() {
   const theme = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const router = useRouter();
-
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
+  console.log(isAuthenticated);
   const handleLogin = async () => {
     try {
       setIsLoading(true);
@@ -49,16 +47,16 @@ export default function LoginView() {
         password: password,
       });
 
-      const data = response.data;
-      console.log(response);
+      const data = response?.data;
       login(data.access_token);
+
+      console.log(response);
       setEmail('');
       setPassword('');
-      if (isAuthenticated) {
-        navigate('/');
-      }
+      toast.success('Login Successfull!');
     } catch (error) {
       setError(error.message);
+      toast.error('User is not valid');
     } finally {
       setIsLoading(false);
     }
@@ -66,6 +64,8 @@ export default function LoginView() {
 
   const renderForm = (
     <>
+      <Toaster />
+
       <Stack spacing={3}>
         <TextField
           name="email"
@@ -109,7 +109,7 @@ export default function LoginView() {
         Login
       </LoadingButton>
 
-      {error && <ErrorMessage message={error} />}
+      {error && <Error message={error} />}
     </>
   );
 

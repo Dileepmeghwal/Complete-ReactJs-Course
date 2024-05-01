@@ -1,28 +1,26 @@
 import axios from 'axios';
 import { createContext, useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-  function login(access_token) {
+  const login = (access_token) => {
     setToken(access_token);
-    if (token) {
-      setIsAuthenticated(true);
-    }
-    localStorage.setItem('token', token);
-  }
+    localStorage.setItem('token', access_token);
+    setIsAuthenticated(true);
+  };
 
-  function logout() {
+  const logout = () => {
     setToken(null);
-    if (token === null) {
-      setIsAuthenticated(false);
-    }
     localStorage.removeItem('token');
-  }
+    setIsAuthenticated(false);
+  };
 
   useEffect(() => {
     const getUser = async () => {
@@ -32,17 +30,25 @@ function AuthProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        const data = response?.data;
-        console.log(response);
-        if (isAuthenticated) {
-          setUser(data);
-        }
+        const userData = response?.data;
+        console.log(userData);
+        setUser(userData);
       } catch (error) {
         console.log(error);
         setUser(null);
       }
     };
-    getUser();
+
+    if (isAuthenticated) {
+      getUser();
+    }
+  }, [token, isAuthenticated]);
+
+  useEffect(() => {
+    // Redirect to dashboard after login
+    if (isAuthenticated) {
+      navigate('/');
+    }
   }, [isAuthenticated]);
 
   return (
@@ -54,9 +60,9 @@ function AuthProvider({ children }) {
 
 function useAuth() {
   const context = useContext(AuthContext);
-
-  if (context === undefined) throw new Error('useAuth must be used within an AuthProvider');
-
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
   return context;
 }
 

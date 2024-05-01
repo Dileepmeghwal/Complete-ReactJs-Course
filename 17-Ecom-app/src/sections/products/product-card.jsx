@@ -17,7 +17,7 @@ export default function ShopProductCard({ product }) {
   const renderStatus = (
     <Label
       variant="filled"
-      color={(product.status === 'sale' && 'error') || 'info'}
+      // color={(product.status === 'sale' && 'error') || 'info'}
       sx={{
         zIndex: 9,
         top: 16,
@@ -26,15 +26,15 @@ export default function ShopProductCard({ product }) {
         textTransform: 'uppercase',
       }}
     >
-      {product.status}
+      {'product.status'}
     </Label>
   );
 
   const renderImg = (
     <Box
       component="img"
-      alt={product.name}
-      src={product.cover}
+      alt={product.title}
+      src={product.images[0]}
       sx={{
         top: 0,
         width: 1,
@@ -55,7 +55,7 @@ export default function ShopProductCard({ product }) {
           textDecoration: 'line-through',
         }}
       >
-        {product.priceSale && fCurrency(product.priceSale)}
+        {'product.priceSale && fCurrency(product.priceSale)'}
       </Typography>
       &nbsp;
       {fCurrency(product.price)}
@@ -76,7 +76,7 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <ColorPreview colors={product.colors} />
+          {/* <ColorPreview colors={product.colors} /> */}
           {renderPrice}
         </Stack>
       </Stack>

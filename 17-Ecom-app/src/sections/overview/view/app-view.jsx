@@ -20,12 +20,16 @@ import { useAuth } from 'src/hooks/AuthContext';
 // ----------------------------------------------------------------------
 
 export default function AppView() {
-  const { user } = useAuth();
+  const { isAuthenticated, user } = useAuth();
+
+  console.log('====================================');
+  console.log(isAuthenticated);
+  console.log('====================================');
 
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Hi {user.name}, Welcome back 👋
+        Hi {user?.name}, Welcome back 👋
       </Typography>
 
       <Grid container spacing={3}>

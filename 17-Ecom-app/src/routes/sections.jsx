@@ -5,6 +5,7 @@ import { useAuth } from 'src/hooks/AuthContext';
 import DashboardLayout from 'src/layouts/dashboard';
 import { RegisterView } from 'src/sections/register';
 import PrivateRoute from './PrivateRoute';
+import { MoonLoader } from 'react-spinners';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
@@ -15,14 +16,18 @@ export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 // ----------------------------------------------------------------------
 
+const loader = {
+  position: 'relative',
+  top: '50%',
+};
+
 export default function Router() {
-  const { isAuthenticated } = useAuth();
   const routes = useRoutes([
     {
       element: (
         <PrivateRoute>
           <DashboardLayout>
-            <Suspense fallback={'loading...'}>
+            <Suspense fallback={<MoonLoader className={loader} />}>
               <Outlet />
             </Suspense>
           </DashboardLayout>

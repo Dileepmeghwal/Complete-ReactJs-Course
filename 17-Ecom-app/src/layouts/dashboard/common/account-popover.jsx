@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -8,11 +9,7 @@ import { alpha } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-
-import { account } from 'src/_mock/account';
-import axios from 'axios';
 import { useAuth } from 'src/hooks/AuthContext';
-import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -37,7 +34,9 @@ export default function AccountPopover() {
   const [open, setOpen] = useState(null);
   const { token, logout, user } = useAuth();
 
-  
+  useEffect(() => {
+    console.log('user', user);
+  }, [token]);
 
   const navigate = useNavigate();
 
@@ -54,7 +53,7 @@ export default function AccountPopover() {
     setOpen(null);
     navigate('/login');
   };
-  console.log('data', user);
+
   return (
     <>
       <IconButton
@@ -70,8 +69,8 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={user.avatar}
-          alt={user.avatar}
+          src={user?.avatar}
+          alt={user?.avatar}
           sx={{
             width: 36,
             height: 36,
@@ -99,10 +98,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {user.name}
+            {user?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {user.email}
+            {user?.email}
           </Typography>
         </Box>
 

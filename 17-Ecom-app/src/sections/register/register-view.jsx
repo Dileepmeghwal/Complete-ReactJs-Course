@@ -18,11 +18,12 @@ import { useRouter } from 'src/routes/hooks';
 import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
-import Iconify from 'src/components/iconify';
 import { useNavigate } from 'react-router-dom';
+import Iconify from 'src/components/iconify';
 import axios from 'axios';
 
 import ErrorMessage from 'src/components/error/error';
+import toast from 'react-hot-toast';
 
 const BASE_URL = `https://api.escuelajs.co/api/v1/users/`;
 
@@ -61,6 +62,7 @@ export default function LoginView() {
       const response = await axios.post(`${BASE_URL}`, formData);
 
       if (response.status === 201) {
+        toast.success('Account Created Successfully!');
         setError('Account Created Successfully!');
         navigate('/login');
       }
@@ -74,6 +76,7 @@ export default function LoginView() {
       console.log(response);
     } catch (err) {
       console.log(err.message);
+      toast.error(err.message);
       setError(err.message);
     } finally {
       setIsLoading(false);
