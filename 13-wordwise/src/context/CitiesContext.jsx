@@ -1,8 +1,10 @@
-import { useEffect } from "react";
-import { useCallback } from "react";
-import { useContext } from "react";
-import { useState } from "react";
-import { createContext } from "react";
+import {
+  useEffect,
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+} from "react";
 
 const CitiesContext = createContext();
 
