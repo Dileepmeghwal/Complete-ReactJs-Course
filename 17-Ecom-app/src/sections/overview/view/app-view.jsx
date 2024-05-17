@@ -16,6 +16,7 @@ import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
 import { useAuth } from 'src/hooks/AuthContext';
+import { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 

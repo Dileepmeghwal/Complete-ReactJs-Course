@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import App from './app';
 import { AuthProvider } from './hooks/AuthContext';
+import { RouterProvider } from './hooks/searchContext';
 
 // ----------------------------------------------------------------------
 
@@ -15,7 +16,9 @@ root.render(
     <BrowserRouter>
       <Suspense>
         <AuthProvider>
-          <App />
+          <RouterProvider>
+            <App />
+          </RouterProvider>
         </AuthProvider>
       </Suspense>
     </BrowserRouter>

@@ -17,6 +17,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 import { ColorPicker } from 'src/components/color-utils';
+import axios from 'axios';
+import { BaseUrl } from 'src/utils/Utils';
+import { useEffect } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -47,7 +50,7 @@ export const COLOR_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
-export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter }) {
+export default function ProductFilters({ data, openFilter, onOpenFilter, onCloseFilter }) {
   const renderGender = (
     <Stack spacing={1}>
       <Typography variant="subtitle2">Gender</Typography>
@@ -60,11 +63,12 @@ export default function ProductFilters({ openFilter, onOpenFilter, onCloseFilter
   );
 
   const renderCategory = (
+    
     <Stack spacing={1}>
       <Typography variant="subtitle2">Category</Typography>
       <RadioGroup>
-        {CATEGORY_OPTIONS.map((item) => (
-          <FormControlLabel key={item} value={item} control={<Radio />} label={item} />
+        {data.map((item) => (
+          <FormControlLabel key={item.id} value={item.name} control={<Radio />} label={item.name} onChange={}/>
         ))}
       </RadioGroup>
     </Stack>

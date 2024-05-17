@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { BaseUrl } from 'src/utils/Utils';
 
 const AuthContext = createContext();
 
@@ -25,13 +26,14 @@ function AuthProvider({ children }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get(`https://api.escuelajs.co/api/v1/auth/profile`, {
+        const response = await axios.get(`${BaseUrl}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const userData = response?.data;
         console.log(userData);
+
         setUser(userData);
       } catch (error) {
         console.log(error);

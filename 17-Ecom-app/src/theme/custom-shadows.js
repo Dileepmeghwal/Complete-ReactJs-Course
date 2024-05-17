@@ -6,7 +6,6 @@ import { grey, info, error, common, primary, success, warning, secondary } from 
 
 export function customShadows() {
   const transparent = alpha(grey[500], 0.16);
-
   return {
     z1: `0 1px 2px 0 ${transparent}`,
     z4: `0 4px 8px 0 ${transparent}`,

@@ -24,8 +24,7 @@ import axios from 'axios';
 
 import ErrorMessage from 'src/components/error/error';
 import toast from 'react-hot-toast';
-
-const BASE_URL = `https://api.escuelajs.co/api/v1/users/`;
+import { BaseUrl } from 'src/utils/Utils';
 
 // ----------------------------------------------------------------------
 
@@ -59,7 +58,7 @@ export default function LoginView() {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(`${BASE_URL}`, formData);
+      const response = await axios.post(`${BaseUrl}/users`, formData);
 
       if (response.status === 201) {
         toast.success('Account Created Successfully!');

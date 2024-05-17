@@ -21,6 +21,7 @@ export function useMovies(query, callback) {
           throw new Error("Something went wrong with fetching movies");
 
         const data = await response.json();
+        console.log('response',response)
         if (data.Response === "False") throw new Error("Movie not found");
         setMovies(data.Search);
       } catch (error) {

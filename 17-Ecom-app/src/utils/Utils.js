@@ -1,3 +1,2 @@
 // save user
-
-const saveUser = (user) => {};
+export const BaseUrl = `https://api.escuelajs.co/api/v1`;

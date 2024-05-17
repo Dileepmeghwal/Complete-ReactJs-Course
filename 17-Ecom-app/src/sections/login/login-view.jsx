@@ -24,6 +24,7 @@ import axios from 'axios';
 import { useAuth } from 'src/hooks/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Error from 'src/components/error/error';
+import { BaseUrl } from 'src/utils/Utils';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ export default function LoginView() {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.post(`https://api.escuelajs.co/api/v1/auth/login`, {
+      const response = await axios.post(`${BaseUrl}/auth/login`, {
         email: email,
         password: password,
       });

@@ -14,13 +14,29 @@ import ProductCartWidget from '../product-cart-widget';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { MoonLoader } from 'react-spinners';
+import { useGlobalContext } from 'src/hooks/searchContext';
+import { BaseUrl } from 'src/utils/Utils';
+import { Pagination } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function ProductsView() {
+export default function ProductsDetail() {
   const [openFilter, setOpenFilter] = useState(false);
-  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  // const [products, setProducts] = useState([]);
+  const { getValue, setValue } = useGlobalContext();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+  const [categories, setCategories] = useState([]);
+  // const { product, isLoading } = useSearch();
+
+  const indexOflastProduct = currentPage * productsPerPage;
+  const indexOfFirstPage = indexOflastProduct - productsPerPage;
+  const currentProducts = getValue.slice(indexOfFirstPage, indexOflastProduct);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const handleOpenFilter = () => {
     setOpenFilter(true);
@@ -32,41 +48,42 @@ export default function ProductsView() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [currentPage]);
 
   const getProducts = () => {
     setIsLoading(true);
     axios
-      .get(`https://api.escuelajs.co/api/v1/products`)
+      .get(`${BaseUrl}/products`)
       .then((res) => {
-        console.log(res.data);
-        setProducts(res.data);
+        console.log('products', res);
+        if (res.status !== 200) {
+          throw new Error('Something went wrong with fetching products.');
+        }
+        setValue(res.data);
       })
       .catch((err) => {
         console.error(err);
-        toast.error('data not found!');
+        toast.error(err.message);
         setIsLoading(false);
       })
       .finally(() => setIsLoading(false));
   };
 
-  const handleKeyDown = (event) => {
-    console.log('A key was pressed', event.keyCode);
+  const getCategories = async () => {
+    try {
+      const res = axios.get(`${BaseUrl}/categories`);
+      const data = (await res).data;
+      console.log(data);
+      setCategories(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
-
   useEffect(() => {
-    window.addEventListener('click', handleKeyDown);
-    return window.removeEventListener('click', handleKeyDown);
+    getCategories();
   }, []);
 
-  const override = {
-    display: 'flex',
-    posittion: 'relative',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%)',
-  };
-  if (isLoading) return <MoonLoader cssOverride={override} loading={isLoading} />;
+  if (isLoading) return <MoonLoader loading={isLoading} />;
 
   return (
     <Container>
@@ -87,19 +104,27 @@ export default function ProductsView() {
             openFilter={openFilter}
             onOpenFilter={handleOpenFilter}
             onCloseFilter={handleCloseFilter}
+            data={categories}
           />
-
           <ProductSort />
         </Stack>
       </Stack>
-      {isLoading && 'loading..'}
+
       <Grid container spacing={3}>
-        {products.map((product) => (
+        {currentProducts?.map((product) => (
           <Grid key={product.id} xs={12} sm={6} md={3}>
             <ProductCard product={product} />
           </Grid>
         ))}
       </Grid>
+
+      <Pagination
+        count={Math.ceil(getValue.length / productsPerPage)}
+        page={currentPage}
+        onChange={handleChangePage}
+        color="primary"
+        size="large"
+      />
 
       <ProductCartWidget />
     </Container>

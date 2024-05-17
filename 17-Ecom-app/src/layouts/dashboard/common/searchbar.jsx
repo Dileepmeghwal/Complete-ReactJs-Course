@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Slide from '@mui/material/Slide';
 import Input from '@mui/material/Input';
@@ -11,6 +11,12 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import { bgBlur } from 'src/theme/css';
 
 import Iconify from 'src/components/iconify';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { useSearch } from 'src/hooks/useSearch';
+import { BaseUrl } from 'src/utils/Utils';
+import { useGlobalContext } from 'src/hooks/searchContext';
+import { Typography } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +47,12 @@ const StyledSearchbar = styled('div')(({ theme }) => ({
 
 export default function Searchbar() {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
+  const [searchHistory, setSearchHistory] = useState(() => {
+    const savedHistory = localStorage.getItem('searchHistory');
+    return savedHistory ? JSON.parse(savedHistory) : [];
+  });
+  const { setValue } = useGlobalContext();
 
   const handleOpen = () => {
     setOpen(!open);
@@ -49,6 +61,29 @@ export default function Searchbar() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleSearch = (e) => {
+    const q = e.target.value;
+    setQuery(q);
+    setSearchHistory([q, ...searchHistory]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  }, [searchHistory]);
+
+  useEffect(() => {
+    const filterByTitle = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/products/?title=${query}`);
+        const data = response?.data;
+        setValue(data);
+      } catch (error) {
+        toast.error(error.message);
+      }
+    };
+    filterByTitle();
+  }, [query]);
 
   return (
     <ClickAwayListener onClickAway={handleClose}>
@@ -66,6 +101,8 @@ export default function Searchbar() {
               fullWidth
               disableUnderline
               placeholder="Search…"
+              value={query}
+              onChange={handleSearch}
               startAdornment={
                 <InputAdornment position="start">
                   <Iconify
