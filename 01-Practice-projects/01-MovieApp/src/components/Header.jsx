@@ -10,9 +10,9 @@ const Header = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="container">
           <Search />
+          <p className=" w-25 text-center"> Found {movie && movie?.length}</p>
         </div>
       </nav>
-      Length {movie && movie?.length}
     </header>
   );
 };

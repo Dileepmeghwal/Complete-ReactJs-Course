@@ -19,6 +19,20 @@
   --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
 
+body {
+  --color-background: #fafafa;
+  --color-foreground: #1f2023;
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-background: #1f2023;
+    --color-foreground: #efefef;
+  }
+}
+body.dark {
+  --color-background: #1f2023;
+  --color-foreground: #efefef;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -92,4 +106,75 @@ main {
   background-color: #6469ff08;
   height: 100%;
   padding: 10px;
+}
+
+.watched {
+  background-color: red;
+}
+.watched img {
+  width: 100%;
+}
+.movieList {
+  width: 100%;
+}
+.movieList ul {
+  padding: 0;
+  list-style: none;
+}
+.movieList ul li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #0e6ce7;
+  color: #fff;
+}
+
+.movie h3 {
+  font-size: 15px;
+}
+.movie img {
+  max-width: 80px;
+  object-fit: contain;
+}
+.content {
+  margin-left: 10px;
+  padding: 0;
+}
+.content h3 {
+  margin: 0;
+}
+.movie-detail {
+  background-color: #ecf2f9;
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.157);
+}
+.back-btn {
+  background-color: transparent;
+  border: 0;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e5caca;
+  font-size: 14px;
+}
+.movie-detail header {
+  background-color: #0e6ce7;
+  padding: 8px 5px;
+  color: #fff;
+}
+.details-overlay {
+  padding: 10px;
+}
+.list-of-watched {
+  list-style: none;
+  padding: 0;
+}
+.list-of-watched li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #010d1cbd;
+}
+.list-of-watched li img{
+  width: 100px;
 }

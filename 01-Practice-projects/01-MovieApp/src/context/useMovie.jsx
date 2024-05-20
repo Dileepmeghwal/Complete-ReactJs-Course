@@ -6,6 +6,7 @@ const MovieProvider = ({ children }) => {
   const [movie, setMovie] = useState([]);
   const [query, setQuery] = useState("inception");
   const [isLoading, setIsLoading] = useState(false);
+  const [movieDetails, setMovieDetails] = useState([]);
   const KEY = "a57571f7";
   function handleChange(text) {
     setQuery(text);
@@ -30,6 +31,19 @@ const MovieProvider = ({ children }) => {
     getMovies();
   }, [query]);
 
+  const getMoviesDetails = async (id) => {
+    try {
+      const response = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&i=${id}`
+      );
+      const data = await response.json();
+      console.log("details", data);
+      setMovieDetails(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <MovieContext.Provider
       value={{
@@ -37,6 +51,8 @@ const MovieProvider = ({ children }) => {
         handleChange,
         isLoading,
         query,
+        getMoviesDetails,
+        movieDetails,
       }}
     >
       {children}

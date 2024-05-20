@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from "react";
 
 const Recent = () => {
-  return (
-    <div>Recent</div>
-  )
-}
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data", data);
+      });
+  }, []);
 
-export default Recent
+  return <div>Recent</div>;
+};
+
+export default Recent;

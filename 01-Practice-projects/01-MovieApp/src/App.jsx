@@ -5,8 +5,10 @@ import Recent from "./pages/Recent";
 import Rated from "./pages/Rated";
 import Movies from "./pages/Movies";
 import Layout from "./components/Layout";
+import { useState } from "react";
 
 function App() {
+  const [isDark, setIsDark] = useState(false);
   return (
     <>
       <Routes>

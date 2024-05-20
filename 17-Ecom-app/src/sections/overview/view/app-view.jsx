@@ -16,7 +16,7 @@ import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
 import AppConversionRates from '../app-conversion-rates';
 import { useAuth } from 'src/hooks/AuthContext';
-import { useEffect } from 'react';
+
 
 // ----------------------------------------------------------------------
 
@@ -24,7 +24,7 @@ export default function AppView() {
   const { isAuthenticated, user } = useAuth();
 
   console.log('====================================');
-  console.log(isAuthenticated);
+  console.log('isAuthenticated ', isAuthenticated);
   console.log('====================================');
 
   return (
