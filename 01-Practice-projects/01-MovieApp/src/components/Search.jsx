@@ -11,7 +11,7 @@ const Search = () => {
       type="search"
       value={query}
       onChange={handleSearch}
-      className="form-control"
+      className="form-control w-100"
       name=""
       id=""
     />

@@ -36,9 +36,9 @@ const Sidebar = () => {
       <div className="sidebar">
         <ul className="sidebar-nav">
           <div className="brand">
-            <a className="navbar-brand" href="#">
+            <div className="navbar-brand" >
               <GiFilmSpool />
-            </a>
+            </div>
           </div>
           {links.map((item, index) => (
             <li key={index} className={pathname === item.path ? "active" : ""}>

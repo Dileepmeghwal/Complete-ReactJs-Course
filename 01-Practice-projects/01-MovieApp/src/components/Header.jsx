@@ -9,8 +9,14 @@ const Header = () => {
     <header>
       <nav className="navbar navbar-expand-lg">
         <div className="container">
-          <Search />
-          <p className=" w-25 text-center"> Found {movie && movie?.length}</p>
+          <div className="row w-100 align-items-center">
+            <div className="col-9">
+              <Search />
+            </div>
+            <div className="col-3">
+              <NumCount totalResult={movie.length} />
+            </div>
+          </div>
         </div>
       </nav>
     </header>
@@ -18,3 +24,7 @@ const Header = () => {
 };
 
 export default Header;
+
+const NumCount = ({ totalResult }) => {
+  return <p className="mb-0"> Found {totalResult} result</p>;
+};
