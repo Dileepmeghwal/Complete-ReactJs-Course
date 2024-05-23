@@ -28,7 +28,7 @@ const MovieProvider = ({ children }) => {
 
         const data = await response.json();
         if (data.Response === "False") throw new Error("Movie not found 🚫");
-        console.log("response", data);
+        // console.log("response", data);
         setMovie(data?.Search);
       } catch (error) {
         console.error(error);
@@ -56,7 +56,7 @@ const MovieProvider = ({ children }) => {
         throw new Error("Something went wrong");
       }
       const data = await response.json();
-      console.log("details", data);
+      // console.log("details", data);
       setMovieDetails(data);
     } catch (error) {
       console.error(error.message);
@@ -92,3 +92,5 @@ function useMovie() {
   return context;
 }
 export { MovieProvider, useMovie };
+
+

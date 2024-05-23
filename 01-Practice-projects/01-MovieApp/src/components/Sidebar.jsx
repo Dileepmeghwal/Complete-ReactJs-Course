@@ -36,7 +36,7 @@ const Sidebar = () => {
       <div className="sidebar">
         <ul className="sidebar-nav">
           <div className="brand">
-            <div className="navbar-brand" >
+            <div className="navbar-brand">
               <GiFilmSpool />
             </div>
           </div>

@@ -6,6 +6,8 @@ const Search = () => {
   const handleSearch = (e) => {
     handleChange(e.target.value);
   };
+
+  
   return (
     <input
       type="search"

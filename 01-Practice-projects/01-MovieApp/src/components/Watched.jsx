@@ -3,7 +3,7 @@ import { useMovie } from "../context/useMovie";
 import { MdOutlineDelete } from "react-icons/md";
 
 const Watched = ({ watched, onDelete }) => {
-  console.log("just add ", watched);
+  // console.log("just add ", watched);
   return (
     <ul className="list-of-watched">
       {watched?.map((watched) => (

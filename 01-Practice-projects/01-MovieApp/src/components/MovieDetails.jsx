@@ -10,7 +10,6 @@ const MovieDetails = ({ watchedMovie, selectedId, onClose, onAddMovie }) => {
   const { getMoviesDetails, isLoading, movieDetails, movie, error } =
     useMovie();
 
-
   useEffect(() => {
     if (selectedId) {
       getMoviesDetails(selectedId);
@@ -35,8 +34,6 @@ const MovieDetails = ({ watchedMovie, selectedId, onClose, onAddMovie }) => {
     .filter((watched) => watched.imdbID)
     .includes(selectedId);
 
-  console.log(isWatched);
-
   const addWatchedMovie = () => {
     const newAddMovie = {
       imdbRating: selectedId,
@@ -57,9 +54,24 @@ const MovieDetails = ({ watchedMovie, selectedId, onClose, onAddMovie }) => {
 
     return () => {
       document.title = "useMovie";
-      console.log(`Clean up effect for movie ${title}`);
+      // console.log(`Clean up effect for movie ${title}`);
     };
   }, [title]);
+
+  useEffect(() => {
+    const handleEscap = (e) => {
+      if (e.code === "Escape") {
+        console.log("escape");
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscap);
+
+    return () => {
+      document.removeEventListener("keydown", handleEscap);
+      console.log("removed escape");
+    };
+  }, []);
 
   return (
     <div className="movie-detail">
@@ -97,7 +109,7 @@ const MovieDetails = ({ watchedMovie, selectedId, onClose, onAddMovie }) => {
                   </p>
                 ) : (
                   <>
-                    <StarRating maxRating={10} size={4}/>
+                    <StarRating maxRating={10} size={4} />
                     <button className="add-btn" onClick={addWatchedMovie}>
                       + Add watch list
                     </button>

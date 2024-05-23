@@ -17,11 +17,27 @@
   --padding-base: 1rem;
   --main-color: f4f5fa;
   --font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --body-color: #ffffff;
+  --text-color: #000000;
+}
+[data-theme="dark"] {
+  --body-color: #363537;
+  --text-color: #fafafa;
+}
+:where(body) {
+  --background-color: #fff;
+  --text-color: #222;
 }
 
 body {
-  --color-background: #fafafa;
-  --color-foreground: #1f2023;
+  background-color: white;
+  color: #363537;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #363537;
+  color: white;
 }
 @media (prefers-color-scheme: dark) {
   body {
@@ -29,10 +45,7 @@ body {
     --color-foreground: #efefef;
   }
 }
-body.dark {
-  --color-background: #1f2023;
-  --color-foreground: #efefef;
-}
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -52,7 +65,7 @@ header {
 .sidebar {
   width: 250px;
   padding: 20px 10px;
-  background-color: #fdfdfd;
+
   border-right: 1px solid #f0ebeb;
 }
 .brand {
@@ -76,6 +89,10 @@ header {
   margin-bottom: 20px;
   padding: 10px 20px;
   border-radius: 6px;
+}
+.body.dark-mode .sidebar ul li {
+  background-color: #fff;
+  color: #fff !important;
 }
 .sidebar ul li.active {
   background-color: var(--primary-color);
@@ -129,7 +146,6 @@ main {
   border-bottom: 1px solid #ddd;
   padding: 10px;
   cursor: pointer;
-
 }
 .summary {
   background-color: #dddddd42;
@@ -155,6 +171,7 @@ main {
   background-color: #313232;
   height: 100%;
   box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.087);
+  color: #fff;
 }
 .back-btn {
   background-color: transparent;
@@ -222,4 +239,8 @@ main {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.highlight {
+  background-color: yellow;
 }
