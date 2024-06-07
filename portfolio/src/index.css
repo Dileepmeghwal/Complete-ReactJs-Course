@@ -1,0 +1,28 @@
+@config "./tailwindcss-config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply font-bold py-3 px-4 rounded bg-slate-500 !important;
+}
+
+.btn {
+  font-weight: 700 !important;
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+  border-radius: 0.25rem !important;
+}
+
+@layer utilities {
+  .bg-brand-gradient {
+    background-image: linear-gradient(#3490dc, #6574cd);
+  }
+}
+
+/* Output */
+.bg-brand-gradient {
+  background-image: linear-gradient(#3490dc, #6574cd) !important;
+}
