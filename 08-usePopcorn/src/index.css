@@ -10,10 +10,13 @@
   --color-red-dark: #e03131;
 }
 
+
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color:"#34A853"
 }
 
 html {

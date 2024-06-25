@@ -54,7 +54,7 @@ export default function LoginView() {
       console.log(response);
       setEmail('');
       setPassword('');
-      toast.success('Login Successfull!');
+      toast.success('Login Successfully!');
     } catch (error) {
       setError(error.message);
       toast.error('User is not valid');
